@@ -90,6 +90,7 @@ $(document).ready(function() {
 			//out = out + "<tr><td>" + packages[i].name + "</td><td>" + packages[i].version + '</td"><td style="text-align: center;">' + packages[i].build + "</td><td>" + packages[i].odate.toISOString().replace("T", " ").replace(/:00.000./, "") + "</td><td>" + out_size+ "</td></tr>";
 		}
 		out = out + bottom;
+		$("#loader").hide();
 		$("#pkgstable").html(out);
 	});
 });
