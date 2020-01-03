@@ -42,111 +42,15 @@
 					<div class="list-group">
 						<a href="installation.html" class="list-group-item list-group-item-action">Installation documentation</a>
 						<a href="configuration.html" class="list-group-item list-group-item-action">Configuring the system</a>
-						<a href="packaging.html" class="list-group-item list-group-item-action active">Packaging system</a>
+						<a href="kpkg.html" class="list-group-item list-group-item-action active">Package Manager (kpkg)</a>
 						<a href="operability.html" class="list-group-item list-group-item-action">GUI setup</a>
+						<a href="packaging.html" class="list-group-item list-group-item-action active">Creating packages for Kwort</a>
 						<a href="faq.html" class="list-group-item list-group-item-action">FAQ</a>
 					</div>
 				</div>
 				<div class="col-lg-8">
 
 					<h2>Package System</h2>
-
-					<p>Kwort package system is very simple, just tar packages containing the binaries compressed with a format supported by libarchive (we normally use xz). If your package needs the execution of extra commands after being decompressed, the /install/doinst.sh script is excecuted.</p>
-					<p>This page explains the usage of kpkg and makepkg. The first one is used to manage your packages (install, remove, upgrade packages, etc...),	while the second one is used to create packages.</p>
-
-					<h4>kpkg</h4>
-					<p>kpkg is Kwort's package manager, it can handle packages created for Kwort in formats supported by libarchive: txz, tbz2 or .tgz are valid options, although txz/tar.xz are the ones prefered for Kwort. It can install packages from our mirrors or any other you choose. It has a few options, including the basics, likeinstalling and removing software, and more	advanced features.</p>
-					<p>Usage: <code>kpkg &lt;ACTION&gt; [PACKAGE[S]|FILE ...]</code></p>
-
-					<h5>OPTIONS</h5>
-
-					<b>update:</b>
-					<p>This option updates a package database from all mirrors installed or from the mirror you chose from. s section down here.</p>
-					<b>Examples:</b>
-					<pre style="background: #222; color: #e83e8c;">
-  kpkg update
-  kpkg update europa
-					</pre>
-
-					<b>install PACKAGE1 [PACKAGE2 ...]:</b>
-					<p>This option allows you to install a package from a local place or from the chosen mirrors.</p>
-					<b>Examples:</b>
-					<pre style="background: #222; color: #e83e8c;">
-  kpkg install openvpn
-  kpkg install go libseccomp btrfs-progs cgroupfs-mount containerd runc docker
-  kpkg install /home/user/mypackage#1.0#x86_64#1.tar.xz
-					</pre>
-
-					<b>remove PACKAGE1 [PACKAGE2 ...]:</b>
-					<p>Use this option to remove installed packages.</p>
-					<b>Examples:</b>
-					<pre style="background: #222; color: #e83e8c;">
-  kpkg remove openvpn
-  kpkg remove go libseccomp btrfs-progs cgroupfs-mount containerd runc docker
-					</pre>
-					<i>CAVEAT: This option does not remove packages installed from source. Only packages installed with kpkg.</i>
-
-					<b>download PACKAGE1 [PACKAGE2 ...]:</b>
-					<p>With this option you download packages from the mirror but don't install them. The downloaded packages go to /var/packages/downloads.</p>
-					<b>Examples:</b>
-					<pre style="background: #222; color: #e83e8c;">
-  kpkg download openvpn
-					</pre>
-
-					<b>search PACKAGE1 [PACKAGE2 ...]:</b>
-					<p>This option only search a package in the database, it doesn't install or remove any package. It doesn't modify the database at all. If you want to know all packages in the database, you can use "/all" as package name.</p>
-					<b>Examples:</b>
-					<pre style="background: #222; color: #e83e8c;">
-  kpkg search openvpn
-					</pre>
-
-					<b>provides FILE:</b>
-					<p>This option allows you to know which package installed by kpkg is providing a given file.</p>
-					<b>Examples:</b>
-					<pre style="background: #222; color: #e83e8c;">
-  kpkg provides bin/ls
-					</pre>
-
-					<b>instkdb FILE or LINK:</b>
-					<p>This option allow you to install a kdb file that contains a database mirror definition. Its argument can be a local kdb file or a link to a kdb file.</p>
-					<b>Examples:</b>
-					<pre style="background: #222; color: #e83e8c;">
-  kpkg instkdb /root/ctrl-c.kdb
-  kpkg instkdb http://ctrl-c.club/~nomius/kwort/4.3.4/ctrl-c.kdb
-					</pre>
-
-					<h5>ENVIRONMENT</h5>
-
-					<b>ROOT:</b>
-					<p>This option is used to set a path to an installation. Leave it empty to install in the root (/). Accepted value is a full directory name.</p>
-					<b>Examples:</b>
-					<pre style="background: #222; color: #e83e8c;">
-  ROOT=/opt kpkg install openvpn
-					</pre>
-					<i>CAVEAT: Note that if you change this variable you might also probably change also KPKG_DB_HOME, to point the installed packages database to </i><code>$ROOT/var/packages/installed.kdb</code>.
-					<br>
-					<br>
-
-					<b>KPKG_DB_HOME:</b>
-					<p>This option is used to set a path where the database is. You can work with this with several database using them completely separated. Leave it empty to use the default database path (<code>/var/packages/installed.kdb</code>).</p>
-					<b>Examples:</b>
-					<pre style="background: #222; color: #e83e8c;">
-  KPKG_DB_HOME=/home/nomius/installed.kdb kpkg install openvpn
-					</pre>
-
-					<b>CSV:</b>
-					<p>Using the search command will produce a human readable form list of installed packages, setting this variable to "yes" will make its output to be in csv format. This option is useful for front-ends where the output of kpkg must be piped to another program.</p>
-					<b>Examples:</b>
-					<pre style="background: #222; color: #e83e8c;">
-  CSV=yes kpkg search /all
-					</pre>
-
-					<b>MIRROR:</b>
-					<p>If you have a package on several mirrors and you don't want to be prompted when installing, you can set this variable the the mirror name. The mirror name is the name of the database without its extension.</p>
-					<b>Examples:</b>
-					<pre style="background: #222; color: #e83e8c;">
-  MIRROR=ctrl-c kpkg install openvpn
-					</pre>
 
 					<h4>Packaging with makepkg</h4>
 					<i>NOTE: The next documentation was taken from the Slackware documentation and slighted modified to apply to Kwort</i>
