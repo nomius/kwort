@@ -49,8 +49,8 @@ function str2date(sdate) {
 }
 
 $(document).ready(function() {
-	var packages = [];
-	$.ajax("https://europa.fapyd.unr.edu.ar/pub/kwort/4.3.4/packages/").then(function (rawdata) {
+	function create_array(rawdata) {
+		var packages = [];
 		splitted = rawdata.split("\n");
 		items = splitted.filter(function f(item) { return (item.includes("<a href=") && !item.includes("../")); });
 
@@ -66,7 +66,11 @@ $(document).ready(function() {
 			odate = str2date(sdate);
 			epoch = Number(odate);
 			packages.push( { 'name': name, 'version' : version, 'build' : build, 'odate' : odate, 'epoch' : epoch, 'size' : nsize } );
-		};
+		}
+		return packages;
+	}
+
+	function create_table(packages) {
 		packages.sort(function (a, b) {
 			if (a['epoch'] < b['epoch']) {
 				return 1
@@ -87,10 +91,24 @@ $(document).ready(function() {
 				out_size = Math.ceil(packages[i].size/1024) + "kb"
 			}
 			out = out + "<tr><td>" + packages[i].name + "</td><td>" + packages[i].version + '</td"><td style="text-align: center;">' + packages[i].build + "</td><td>" + packages[i].odate.toDateString() + "</td><td>" + out_size+ "</td></tr>";
-			//out = out + "<tr><td>" + packages[i].name + "</td><td>" + packages[i].version + '</td"><td style="text-align: center;">' + packages[i].build + "</td><td>" + packages[i].odate.toISOString().replace("T", " ").replace(/:00.000./, "") + "</td><td>" + out_size+ "</td></tr>";
 		}
 		out = out + bottom;
 		$("#loader").hide();
 		$("#pkgstable").html(out);
-	});
+	}
+
+	$.ajax("https://europa.fapyd.unr.edu.ar/pub/kwort/4.3.4/packages/").then(
+		function (rawdata) { // OK with primary mirror
+			packages = create_array(rawdata);
+			create_table(packages);
+		},
+		function(rawdata) {  // Primary mirror failed
+			$.ajax("http://http://ctrl-c.club/~nomius/kwort/4.3.4/packages/").then( // Trying Secondary mirror now (hopefully ctrl-c implements https, otherwise this is useless).
+				function (rawdata2) {
+					packages = create_array(rawdata2);
+					create_table(packages);
+				}
+			)
+		}
+	);
 });
