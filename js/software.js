@@ -50,7 +50,7 @@ function str2date(sdate) {
 
 $(document).ready(function() {
 	var packages = [];
-	$.ajax("http://ctrl-c.club/~nomius/kwort/4.3.4/packages/").then(function (rawdata) {
+	$.ajax("https://europa.fapyd.unr.edu.ar/pub/kwort/4.3.4/packages/").then(function (rawdata) {
 		splitted = rawdata.split("\n");
 		items = splitted.filter(function f(item) { return (item.includes("<a href=") && !item.includes("../")); });
 
