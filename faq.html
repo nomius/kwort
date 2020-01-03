@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Kwort Linux</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<link rel="stylesheet" href="css/bootstrap.css" media="screen">
+		<link rel="stylesheet" href="css/custom.min.css">
+	</head>
+	<body style="display: flex; flex-direction:column;">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<a class="navbar-brand" href="index.html">Kwort Linux</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarColor02">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="news.html">News</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="screenshots.html">Screenshots</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="download.html">Download</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="software.html">Software</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" href="documentation.html">Documentation</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<br>
+		<div class="container">
+			<div class="row" style="margin-bottom: 2rem;">
+				<div class="col-lg-3">
+					<div class="list-group">
+						<a href="installation.html" class="list-group-item list-group-item-action">Installation documentation</a>
+						<a href="configuration.html" class="list-group-item list-group-item-action">Configuring the system</a>
+						<a href="packaging.html" class="list-group-item list-group-item-action">Packaging system</a>
+						<a href="operability.html" class="list-group-item list-group-item-action">GUI setup</a>
+						<a href="faq.html" class="list-group-item list-group-item-action active">FAQ</a>
+					</div>
+				</div>
+				<div class="col-lg-8">
+
+					<h2>FAQ</h2>
+					<br>
+					<h4>The installation just hanged during boot. What should I do?</h4>
+					<p>There's probably a kernel built-in configuration causing issues with your current hardware. Normally, noapic or nomodeset options at boot fix the problem.</p>
+
+					<h4>Ok, I've installed Kwort, what should I do now?</h4>
+					<p>First, login as root, then add a new user with:</p>
+					<pre style="background: #222; color: #e83e8c;">
+  useradd -m -g users -G audio,video,cdrom,floppy,dialout,wheel -s /bin/bash newuser
+					</pre>
+					<p>Then you should try if Xorg (try the <code>startx</code> command) works as expected for you.</p>
+
+					<p>These days Xorg works pretty much OOTB, but <b>if not should configure your X settings with:</b></p>
+					<pre style="background: #222; color: #e83e8c;">
+  X -configure
+					</pre>
+					<p><b>A new file will be created, test it with:</b></p>
+					<pre style="background: #222; color: #e83e8c;">
+  X -config ./xorg.conf.new
+					</pre>
+					<p>Then, copy that file to /etc/X11 with the name xorg.conf.</p>
+					<p>Now you can login with your new created user and start the graphical environment with the following command:</p>
+					<pre style="background: #222; color: #e83e8c;">
+  startx
+					</pre>
+
+					<h4>My user can't play any sound file... What should I do?</h4>
+					<p>First of all, check the audio volume level of your sound card, if they seem OK, surely your user isn't in the audio group. Check it with the command: <code>id -n -G</code>
+					<p>If that's OK, then maybe you have to configure your soundcard, try it with: <code>alsaconf</code></p>
+
+					<h4>Where can I configure my network? Which file?</h4>
+					<p>Just edit and put your configuration as needed <code>/etc/rc.d/net</code>. See the System Configuration in order to understand what <code>/etc/rc.d/net</code> should be.
+
+					<h4>How can I manage my packages with Kwort?</h4>
+					<p><code>kpkg</code> is the packet manager from Kwort. Read the full documentation here: <a href="packaging.html">Package System</a>. You can also read the same on the kpkg manual page (8).</p>
+
+					<h4>X resolution in qemu/kvm, doesn't get any higher than 800x600, how can I fix it?</h4>
+					<p>Yes, edit your xorg.conf (it should be in /etc/X11/xorg.conf in your virtual machine) and set in the Monitor settings the HorizSync and VertRefresh. So your Monitor section should look something like this:</p>
+					<pre style="background: #222; color: #e83e8c;">
+  Section "Monitor"
+      Identifier  "Monitor0"
+      VendorName  "Monitor Vendor"
+      ModelName   "Monitor Model"
+      VertRefresh 43-60
+      HorizSync   28-64
+  EndSection
+					</pre>
+
+					<h4>I go into X, but my mouse and/or keyboard isn't working. How can I fix it?</h4>
+					<p>Since Kwort doesn't use PolicyKit/uinputd/hal, just add the following to your xorg.conf file:</p>
+					<pre style="background: #222; color: #e83e8c;">
+  Section "ServerFlags"
+      Option "AutoAddDevices" "False"
+  EndSection
+					</pre>
+
+					<h4>What should I do with the kdb file?</h4>
+					<p>The kdb file stands for Kwort database, and you can install it with kpkg in this way:</p>
+					<pre style="background: #222; color: #e83e8c;">
+  kpkg instkdb ctrl-c.kdb
+					</pre>
+					<p>Or simply:
+					<pre style="background: #222; color: #e83e8c;">
+  kpkg instkdb http://ctrl-c.club/~nomius/kwort/&lt;KWORT VERSION&gt;/ctrl-c.kdb
+					</pre>
+
+
+					<h4>I heard that I can use CRUX ports with Kwort. Is that true? If that's so, then how can I do it?</h4>
+					<p>CRUX ports are a really nice piece of software. You can even integrate that port system in any Linux distribution with just a few modifications. I made those modification in the crux port system for Kwort so that, the port system is fully integrated with Kwort's package system so you can really enjoy it. Go to the package_more/ports directory of the ISO and install the packages in there:</p>
+					<pre style="background: #222; color: #e83e8c;">
+  # If the ISO is mounted in /mnt/cdrom
+  kpkg install /mnt/cdrom/packages_more/ports/*.tar.xz
+					</pre>
+					<p>Additionally you can install them from the mirror with:</p>
+					<pre style="background: #222; color: #e83e8c;">
+  kpkg install fakeroot httpup rsync ports
+					</pre>
+
+					<p>I encourage you to read the <a href="https://crux.nu/Main/Handbook3-5#ntoc29">CRUX Port's documentation</a>. Just bear in mind that <i>ports are installed in /usr/src/ports, unlike CRUX where ports are in /usr/ports.</i>
+
+					<h4>How can I install docker?</h4>
+					<p>kpkg doesn't handle dependencies so you need to install them manually. Below is how you do it:</p>
+					<pre style="background: #222; color: #e83e8c;">
+  kpkg install go libseccomp btrfs-progs cgroupfs-mount containerd runc docker
+					</pre>
+
+					<h4>Is it there something like a "service" command for Kwort?</h4>
+					<p>Since Kwort 4.2, the service command is already included in the rc package, otherwise, you can download it from <a href="https://raw.githubusercontent.com/nomius/misctools/master/service">here</a>; although I encourage you to use <code>/etc/rc.d</code> script files</p>
+				</div>
+			</div>
+		</div>
+		<br>
+		<br>
+		<br>
+		<div class="footer bg-dark" style="text-align:center; padding: 1.6rem 1rem; position: fixed; left: 0; bottom: 0; width: 100%;">Copyright Kwort Linux - 2002-2019</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/popper.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/custom.js"></script>
+	</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Kwort Linux</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<link rel="stylesheet" href="css/bootstrap.css" media="screen">
+		<link rel="stylesheet" href="css/custom.min.css">
+		<style>
+			table, th, td {
+			border: 1px solid gray;
+			padding: 10px;
+		}
+		</style>
+	</head>
+	<body style="display: flex; flex-direction:column;">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<a class="navbar-brand" href="index.html">Kwort Linux</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarColor02">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="news.html">News</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="screenshots.html">Screenshots</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="download.html">Download</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="software.html">Software</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" href="documentation.html">Documentation</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<br>
+		<div class="container">
+			<div class="row" style="margin-bottom: 2rem;">
+				<div class="col-lg-3">
+					<div class="list-group">
+						<a href="installation.html" class="list-group-item list-group-item-action">Installation documentation</a>
+						<a href="configuration.html" class="list-group-item list-group-item-action active">Configuring the system</a>
+						<a href="packaging.html" class="list-group-item list-group-item-action">Packaging system</a>
+						<a href="operability.html" class="list-group-item list-group-item-action">GUI setup</a>
+						<a href="faq.html" class="list-group-item list-group-item-action">FAQ</a>
+					</div>
+				</div>
+				<div class="col-lg-8">
+
+					<h2>Configuration documentation</h2>
+					<br>
+					<h4>Runlevels</h4>
+
+					<i>CAVEAT: The next documentation was taken from the CRUX documentation and slighted modified to apply to Kwort</i>
+					<br>
+					<br>
+
+					<p>The following runlevels are used in Kwort (defined in /etc/inittab):</p>
+
+					<table>
+						<tr>
+							<th>Runlevel</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td>0</td>
+							<td>Halt</td>
+						</tr>
+						<tr>
+							<td>1 (S)</td>
+							<td>Single-user Mode</td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td>Multi-user Mode</td>
+						</tr>
+						<tr>
+							<td>3-5</td>
+							<td>(Not used)</td>
+						</tr>
+						<tr>
+							<td>6</td>
+							<td>Reboot</td>
+						</tr>
+					</table>
+
+					<br>
+					<h4>Layout</h4>
+					<p>The initialization scripts used in Kwort follow the BSD-style (as opposed to the SysV-style) and have the following layout.</p>
+					<table>
+						<tr>
+							<th>File</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td>/etc/rc.d/init/rc</td>
+							<td>System boot script</td>
+						</tr>
+						<tr>
+							<td>/etc/rc.d/init/rc.single</td>
+							<td>Single-user startup script</td>
+						</tr>
+						<tr>
+							<td>/etc/rc.d/init/rc.multi</td>
+							<td>Multi-user startup script</td>
+						</tr>
+						<tr>
+							<td>/etc/rc.d/init/rc.local</td>
+							<td>Local multi-user startup script (empty by default)</td>
+						</tr>
+						<tr>
+							<td>/etc/rc.d/init/rc.shutdown</td>
+							<td>System shutdown script</td>
+						</tr>
+						<tr>
+							<td>/etc/rc.conf</td>
+							<td>System configuration</td>
+						</tr>
+						<tr>
+							<td>/etc/rc.d</td>
+							<td>Service start/stop script directory</td>
+						</tr>
+					</table>
+
+					<br>
+					<h4>Configuration Variables in /etc/rc.conf</h4>
+					<table>
+						<tr>
+							<th>Variable</th>
+							<th>Description</th>
+						</tr>
+
+						<tr>
+							<td>FONT</td>
+							<td>Specifies which console font to load at system startup. The contents of this variable will be passed as argument to setfont(1). The available fonts are located in /usr/share/kbd/consolefonts/. <br><b>Example:</b><code>FONT=default</code></td>
+						</tr>
+						<tr>
+							<td>KEYMAP</td>
+							<td>Specifies which console keyboard map to load at system startup. The contents of this variable will be passed as argument to loadkeys(1). The available keyboard maps are located in /usr/share/kbd/keymaps/. <br><b>Example:</b> <code>KEYMAP=es-latin1</code></td>
+						</tr>
+						<tr>
+							<td>TIMEZONE</td>
+							<td>Specifies the timezone used by the system. The available zone description files are located in /usr/share/zoneinfo/. <strong>Example:</strong> TIMEZONE=Europe/Stockholm <br><b>Example:</b> <code>TIMEZONE=UTC</code></td>
+						</tr>
+						<tr>
+							<td>HOSTNAME</td>
+							<td>Specifies the hostname. <br><b>Example:</b> <code>HOSTNAME=Aquiles</code></td>
+						</tr>
+						<tr>
+							<td>MODULES</td>
+							<td>You can indicate the list of modules that will be loaded during startup. <br><b>Example:</b> <code>MODULES=(8139too ov511)</code></td>
+						</tr>
+						<tr>
+							<td>LVM</td>
+							<td>Indicate whether you want to use LVM or not (yes/no). <br><b>Example:</b> <code>LVM=no</code></td>
+						</tr>
+						<tr>
+							<td>SERVICES</td>
+							<td>Specifies which services to start at system startup. The services specified in this array must have a matching start/stop script in /etc/rc.d/. When entering multi-user mode the specified scripts will be called in the specified order with the argument start. At system shutdown or when entering single-user mode these scripts will be called in the reverse order with the argument stop. <br><b>Example:</b> <code>SERVICES=(sysklogd lo net sshd)</code></td>
+						</tr>
+					</table>
+
+					<br>
+					<h4>Generating locales</h4>
+
+					<p>Since Kwort 3 is based on CRUX, glibc does not contain all possible locales anymore, thus you'll have to generate the locales you need/use. The following example is a typical setup for swedish users, replace sv_SE* with the locale you want:</p>
+					<pre style="background: #222; color: #e83e8c;">
+  localedef -i sv_SE -f ISO-8859-1 sv_SE
+  localedef -i sv_SE -f ISO-8859-1 sv_SE.ISO-8859-1
+  localedef -i sv_SE -f UTF-8 sv_SE.utf8
+					</pre>
+					<h4>Network Configuration</h4>
+
+					<p>The network configuration is found in the service script /etc/rc.d/net. To enable this service you need to add net to the SERVICES array in /etc/rc.conf.</p>
+					<p>Please adjust this script to your needs or create others if needed.</p>
+					<pre style="background: #222; color: #e83e8c;">
+  #!/bin/sh
+  #
+  # /etc/rc.d/net: start/stop network interface
+  #
+
+  # Connection type: "DHCP" or "static"
+  TYPE="DHCP"
+
+  # For "static" connections, specify your settings here:
+  # To see your available devices run "ip link".
+  DEV=wlo1
+
+  # Optional settings:
+  DHCPOPTS="-h `/bin/hostname` -t 10 -C resolv.conf"
+
+  case $1 in
+      start)
+          if [ "${TYPE}" = "DHCP" ]; then
+              /sbin/dhcpcd ${DHCPOPTS}
+          else
+              /sbin/ip addr add ${ADDR}/${MASK} dev ${DEV} broadcast +
+              /sbin/ip link set ${DEV} up
+              /sbin/ip route add default via ${GW}
+          fi
+      ;;
+      stop)
+          if [ "${TYPE}" = "DHCP" ]; then
+              /sbin/dhcpcd -x
+          else
+              /sbin/ip route del default
+              /sbin/ip link set ${DEV} down
+              /sbin/ip addr del ${ADDR}/${MASK} dev ${DEV}
+          fi
+      ;;
+      restart)
+          $0 stop
+          $0 start
+      ;;
+      *)
+          echo "Usage: $0 [start|stop|restart]"
+      ;;
+  esac
+
+  # End of file
+					</pre>
+				</div>
+			</div>
+		</div>
+		<br>
+		<br>
+		<br>
+		<div class="footer bg-dark" style="text-align:center; padding: 1.6rem 1rem; position: fixed; left: 0; bottom: 0; width: 100%;">Copyright Kwort Linux - 2002-2019</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/popper.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/custom.js"></script>
+	</body>
+</html>

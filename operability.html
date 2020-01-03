@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Kwort Linux</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<link rel="stylesheet" href="css/bootstrap.css" media="screen">
+		<link rel="stylesheet" href="css/custom.min.css">
+	</head>
+	<body style="display: flex; flex-direction:column;">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<a class="navbar-brand" href="index.html">Kwort Linux</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarColor02">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="news.html">News</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="screenshots.html">Screenshots</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="download.html">Download</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="software.html">Software</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" href="documentation.html">Documentation</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<br>
+		<div class="container">
+			<div class="row" style="margin-bottom: 2rem;">
+				<div class="col-lg-3">
+					<div class="list-group">
+						<a href="installation.html" class="list-group-item list-group-item-action">Installation documentation</a>
+						<a href="configuration.html" class="list-group-item list-group-item-action">Configuring the system</a>
+						<a href="packaging.html" class="list-group-item list-group-item-action">Packaging system</a>
+						<a href="operability.html" class="list-group-item list-group-item-action active">GUI setup</a>
+						<a href="faq.html" class="list-group-item list-group-item-action">FAQ</a>
+					</div>
+				</div>
+				<div class="col-lg-8">
+
+					<h2>Managing Kwort</h2>
+					<br>
+					<p>The below documentaion describe a few tools and configuration files which makes the user experience easier and cleaner.</p>
+					<br>
+
+					<h4>Moving around in the base GUI configuration</h4>
+					<p>There are three main key shortcut available in Kwort that are not in other systems:</p>
+					<p><kbd><kbd>alt</kbd> + <kbd>z</kbd></kbd> Opens the default terminal (rxvt-unicode, AKA: urxvt)</p>
+					<p><kbd><kbd>alt</kbd> + <kbd>x</kbd></kbd> Opens the default browser. If this one wasn't configured, the browser chooser will show up.</p>
+					<p><kbd><kbd>alt</kbd> + <kbd>c</kbd></kbd> Opens the volume mixer.</p>
+					<br>
+
+					<h4>Kwort tools</h4>
+					<p>Kwort comes with 3 tools to configure default tools and preferences on the system, these are: <code>browser</code>, <code>kwort-mixer</code> and <code>xdg-open</code>.
+					<p>All of these three can be manually tweaked and/or configured.
+					<p><code>browser</code> will open the configured browser. If it wasn't configured yet, it will use a dmenu based menu with the list of installed browsers to let you pick the one you want to set. This tool will configure the variable <code>BROWSER</code> in the file <code>$HOME/.config/browser.conf</code>.
+					<p><code>kwort-mixer</code> will allow you to increase/decrease volume or toggle it. It supports pulseaudio (default) and alsa as backends and uses a Kwort notification system (built on top of dzen2). You can choose to switch to ALSA by editing the file <code>${HOME}/.config/audio.conf</code> (if it doesn't exist you can create it). If you choose to use	ALSA instead of PulseAudio, you should set the variable <code>USE_PULSE</code> to 0 and configure the variables <code>ALSA_CARD</code> and <code>ALSA_CHANNEL</code>in this configuration file.
+					<p><code>xdg-open</code> is a simple implementation and with a simple configuration of the file/URL opener using user's preferred application. It uses dmenu to allow the user to choose their preferred apps and the configuration is saved in <code>$HOME/.config/kxdg.cfg</code> in the format <code>extension=opener</code> in case you want to manually configure it.
+
+				</div>
+			</div>
+		</div>
+		<br>
+		<br>
+		<br>
+		<div class="footer bg-dark" style="text-align:center; padding: 1.6rem 1rem; position: fixed; left: 0; bottom: 0; width: 100%;">Copyright Kwort Linux - 2002-2019</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/popper.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/custom.js"></script>
+	</body>
+</html>
