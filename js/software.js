@@ -5,46 +5,8 @@ function str2date(sdate) {
 	year = sdate.split(" ")[0].split("-")[2];
 	hour = sdate.split(" ")[1].split(":")[0];
 	minute = sdate.split(" ")[1].split(":")[1];
-	switch(smonth) {
-		case 'Jan':
-			month = 1;
-			break;
-		case 'Feb':
-			month = 2;
-			break;
-		case 'Mar':
-			month = 3;
-			break;
-		case 'Apr':
-			month = 4;
-			break;
-		case 'May':
-			month = 5;
-			break;
-		case 'Jun':
-			month = 6;
-			break;
-		case 'Jul':
-			month = 7;
-			break;
-		case 'Aug':
-			month = 8;
-			break;
-		case 'Sep':
-			month = 9;
-			break;
-		case 'Oct':
-			month = 10;
-			break;
-		case 'Nov':
-			month = 11;
-			break;
-		case 'Dec':
-			month = 12;
-			break;
-		default:
-			month = 0;
-	}
+	all_months = { 'Jan' : 1, 'Feb' : 2, 'Mar' : 3, 'Apr' : 4, 'May' : 5, 'Jun' : 6, 'Jul' : 7, 'Aug': 8, 'Sep' : 9, 'Oct' : 10, 'Nov' : 11, 'Dec' : 12 }
+	month = all_months[smonth];
 	return new Date(year, month, day, hour, minute);
 }
 
@@ -103,11 +65,14 @@ $(document).ready(function() {
 			create_table(packages);
 		})
 		.fail( function(rawdata) {  // Primary mirror failed
-			$.ajax("http://ctrl-c.club/~nomius/kwort/4.3.4/packages/").then( // Trying Secondary mirror now (hopefully ctrl-c implements https, otherwise this is useless).
-				function (rawdata2) {
+			$.ajax("http://ctrl-c.club/~nomius/kwort/4.3.4/packages/")
+				.then( function (rawdata2) { // Trying Secondary mirror now (hopefully ctrl-c implements https, otherwise this is useless).
 					packages = create_array(rawdata2);
 					create_table(packages);
-				}
-			)
+				})
+				.fail( function (rawdata2) { // Let's display an error message
+					$("#loader").hide();
+					$("#pkgstable").html("<p>All mirrors are down");
+				})
 		})
 });
