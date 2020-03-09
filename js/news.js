@@ -27,9 +27,9 @@ $(document).ready( function() {
 			var news_content = "";
 			for(i = 0; i < news_per_page; i++) {
 				var new_data = sorter_nIndex[show_news + i];
-				if (new_data != undefined) {
-					news_content += "<br>" + get_new_content(new_data.link);
-				}
+				if (new_data == undefined) {
+					break;
+				news_content += "<br>" + get_new_content(new_data.link);
 			}
 			$("#newsplaceholder").html(news_content);
 		} )
