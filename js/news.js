@@ -15,6 +15,8 @@ $(document).ready( function() {
 	var news_per_page = 5;
 	var urls = window.location.href.split("/");
 	var idx = urls[urls["length"]-1].replace('.html', '').replace('.htm', '').replace('news', '');
+	if (idx == "")
+		idx = 0;
 	show_news = news_per_page * idx;
 
 	$("#loader").hide();
