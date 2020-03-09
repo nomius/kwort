@@ -29,6 +29,7 @@ $(document).ready( function() {
 				var new_data = sorter_nIndex[show_news + i];
 				if (new_data == undefined) {
 					break;
+				}
 				news_content += "<br>" + get_new_content(new_data.link);
 			}
 			$("#newsplaceholder").html(news_content);
