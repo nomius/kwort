@@ -5,10 +5,10 @@ $(document).ready( function() {
 		$.ajax(link)
 			.then( function (new_rawdata) {
 				return new_rawdata;
-			}
+			} )
 			.fail( function (new_err) {
 				return "";
-			}
+			} )
 	}
 
 
