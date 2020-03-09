@@ -9,6 +9,9 @@ $(document).ready( function() {
 			.fail( function (new_err) {
 				return "";
 			} )
+			.done( function(new_rawdata) {
+				return new_rawdata;
+			} )
 	}
 
 
