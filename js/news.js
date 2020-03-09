@@ -12,13 +12,9 @@ $(document).ready( function() {
 	$.ajax("content/news/index.json")
 		.then( function (nIndex) {
 			var sorter_nIndex = nIndex.sort(function(a, b) { return b.date - a.date; } );
-			var news_content = "";
-			var complete = false;
-			var obj = null;
 			for(i = 0; i < news_per_page; i++) {
 				var new_item = sorter_nIndex[show_news + i];
 				if (new_item == undefined) {
-					complete = true;
 					break;
 				}
 				$.ajax(new_item.link)
