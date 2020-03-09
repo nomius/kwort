@@ -1,19 +1,4 @@
-
 $(document).ready( function() {
-
-	function get_new_content(link) {
-		$.ajax(link)
-			.then( function (new_rawdata) {
-				return new_rawdata;
-			} )
-			.fail( function (new_err) {
-				return "";
-			} )
-			.done( function(new_rawdata) {
-				return new_rawdata;
-			} )
-	}
-
 
 	var news_per_page = 5;
 	var urls = window.location.href.split("/");
@@ -29,11 +14,14 @@ $(document).ready( function() {
 			var sorter_nIndex = nIndex.sort(function(a, b) { return b.date - a.date; } );
 			var news_content = "";
 			for(i = 0; i < news_per_page; i++) {
-				var new_data = sorter_nIndex[show_news + i];
-				if (new_data == undefined) {
+				var new_item = sorter_nIndex[show_news + i];
+				if (new_item == undefined) {
 					break;
 				}
-				news_content += "<br>" + get_new_content(new_data.link);
+				$.ajax(new_item.link)
+					.then( function (new_item_data) {
+						news_content += "<br>" + new_item_data;
+					} )
 			}
 			$("#newsplaceholder").html(news_content);
 		} )
