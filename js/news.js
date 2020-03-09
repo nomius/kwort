@@ -2,7 +2,7 @@
 $(document).ready( function() {
 
 	function get_new_content(link) {
-		$.ajax(link)
+		return $.ajax(link)
 			.then( function (new_rawdata) {
 				return new_rawdata;
 			} )
