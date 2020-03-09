@@ -22,8 +22,7 @@ $(document).ready( function() {
 	$("#loader").hide();
 
 	$.ajax("content/news/index.json")
-		.then( function (rawdata) {
-			var nIndex = JSON.parse(rawdata);
+		.then( function (nIndex) {
 			var sorter_nIndex = nIndex.sort(function(a, b) { return b.date - a.date; } );
 			var news_content = "";
 			for(i = 0; i < news_per_page; i++) {
