@@ -19,7 +19,7 @@ $(document).ready( function() {
 				}
 				$.ajax(new_item.link)
 					.then(function (new_content) {
-						$("#newsplaceholder").append(new_content + "<br>");
+						$("#newsplaceholder").append(marked(new_content) + "<br>");
 					} )
 			}
 		} )
