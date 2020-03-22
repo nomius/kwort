@@ -17,7 +17,7 @@ Create filesystems (and swap area(s) if you want to) where Kwort will be install
 Mount your filesystems making /mnt/install your root mountpoint this will allow Kwort's package installer to do its job properly.
 
 For example if you formatted /dev/sda1 as ext4 and want to install Kwort into it, you sould run:
-`mount -t ext4 /dev/sda1 /mnt/install`. Take note that if for example you want /boot in a separate partition (let's say /dev/sda2 formatted as ext2) you should also do: `mkdir -p /mnt/install/boot &amp;&amp; mount -t ext2 /dev/sda2 /mnt/install/boot`.
+`mount -t ext4 /dev/sda1 /mnt/install`. Take note that if for example you want /boot in a separate partition (let's say /dev/sda2 formatted as ext2) you should also do: `mkdir -p /mnt/install/boot && mount -t ext2 /dev/sda2 /mnt/install/boot`.
 
 Mount the installation media in /mnt/kwort if it is not already mounted:
  *CAVEAT: The installation media device could change depending your installation device (optical, usb, a separated partition, etc...).*
