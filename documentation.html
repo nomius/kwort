@@ -9,35 +9,15 @@
 		<link rel="stylesheet" href="css/custom.min.css">
 	</head>
 	<style>
-pre { background: #222; color: #e83e8c; }
+		pre {
+			background: #222;
+			color: #e83e8c;
+		}
 	</style>
 	<body style="display: flex; flex-direction:column;">
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-			<a class="navbar-brand" href="index.html">Kwort Linux</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
 
-			<div class="collapse navbar-collapse" id="navbarColor02">
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item">
-						<a class="nav-link" href="news.html">News</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="screenshots.html">Screenshots</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="download.html">Download</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="software.html">Software</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link active" href="documentation.html">Documentation</a>
-					</li>
-				</ul>
-			</div>
-		</nav>
+		<div id="nav-placeholder"></div>
+
 		<div class="container" style="padding: 25px 0px 40px 0px">
 			<div class="row" style="margin-bottom: 2rem;">
 				<div class="col-lg-3">
@@ -59,7 +39,8 @@ pre { background: #222; color: #e83e8c; }
 		<script src="js/popper.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/custom.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+		<script src="js/navbar.js"></script>
 		<script src="js/documentation.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 	</body>
 </html>
