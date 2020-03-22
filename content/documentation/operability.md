@@ -1,4 +1,4 @@
-## Managing Kwort
+## Managing Kwort GUI
 
 The below documentaion describe a few tools and configuration files which makes the user experience easier and cleaner.
 
