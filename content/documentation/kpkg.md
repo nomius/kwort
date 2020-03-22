@@ -17,8 +17,8 @@ This option updates a package database from all mirrors installed or from the mi
 
 **Examples:**
 ```sh
-kpkg update
-kpkg update europa
+  kpkg update
+  kpkg update europa
 ```
 
 **install PACKAGE1 [PACKAGE2 ...]:**
@@ -26,9 +26,9 @@ This option allows you to install a package from a local place or from the chose
 
 **Examples:**
 ```
-kpkg install openvpn
-kpkg install go libseccomp btrfs-progs cgroupfs-mount containerd runc docker
-kpkg install /home/user/mypackage#1.0#x86\_64#1.tar.xz
+  kpkg install openvpn
+  kpkg install go libseccomp btrfs-progs cgroupfs-mount containerd runc docker
+  kpkg install /home/user/mypackage#1.0#x86\_64#1.tar.xz
 ```
 
 **remove PACKAGE1 [PACKAGE2 ...]:**
