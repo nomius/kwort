@@ -3,7 +3,7 @@ $.get("navbar.html", function(data){
 	var link = document.URL.split("/").pop();
 	links = document.getElementsByTagName("a");
 	for (i = 0; i < links.lenght; i++) {
-		if (links[i].pop() == link) {
+		if (links[i].href.pop() == link) {
 			links[i].className = "nav-link active";
 		}
 	}
