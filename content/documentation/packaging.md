@@ -21,7 +21,7 @@ The next step is to copy all the files to the directory tree. So in this case, t
 
 ```sh
   cd /pkg
-  makepkg -s -c -z foo#1.0#x86\_64#1.tar.xz
+  makepkg -s -c -z foo#1.0#x86_64#1.tar.xz
 ```
 
 This will create a package called foo#1.0#x86\_64#1.tar.xz which contains the files foo and foorc which will be installed in /usr/bin and /usr/etc respectively. Also, given the options -s, -c and -z was given, it will strip binaries (in this case `/usr/bin/foo`), chown all files to root:root and compress man pages if any.
@@ -35,7 +35,7 @@ As you probably noted, you will need to hunt around for the files and then to co
   make
   make DESTDIR=/pkg install
   cd /pkg
-  makepkg -s -z -c foo#1.0#x86\_64#1.tar.xz
+  makepkg -s -z -c foo#1.0#x86_64#1.tar.xz
 ```
 
 The line `./configure --prefix=/usr` will build the package in order to get configured for the real system in usr. The line `make DESTDIR=/pkg install` will cause the known `make install` to install all files into `/pkg` while at the same time, building the directory tree for you. So when you are done, just go to `/pkg` and run `makepkg` from within it, and it will automatically build the package for you. If the source package doesn't use autotools, then you will have to build and find out where the files will be installed in. Fortunately, most major source packages will require you to make use of the `./configure` stage.
