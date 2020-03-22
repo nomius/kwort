@@ -8,7 +8,7 @@ This page explains the usage of kpkg and makepkg. The first one is used to manag
 
 kpkg is Kwort's package manager, it can handle packages created for Kwort in formats supported by libarchive: txz, tbz2 or .tgz are valid options, although txz/tar.xz are the ones prefered for Kwort. It can install packages from our mirrors or any other you choose. It has a few options, including the basics, likeinstalling and removing software, and more advanced features.
 
-Usage: kpkg \<ACTION\> [PACKAGE[S]|FILE ...]
+Usage: `kpkg <ACTION> [PACKAGE[S]|FILE ...]`
 
 ##### OPTIONS
 
