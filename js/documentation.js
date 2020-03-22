@@ -8,6 +8,7 @@ $(document).ready( function() {
 		section = "documentation";
 	}
 
+	$("#loader").hide();
 	$.ajax("content/documentation/" + section + ".md")
 		.then( function (data) {
 			data_section = document.getElementsByClassName("col-lg-8")[0].innerHTML = marked(data);

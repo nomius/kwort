@@ -1,5 +1,6 @@
 $(document).ready( function() {
 
+	$("#loader").hide();
 	$.ajax("content/downloads.md")
 		.then( function (data) {
 			data_section = document.getElementsByClassName("container")[0].innerHTML = marked(data);
