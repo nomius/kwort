@@ -17,7 +17,10 @@
 
 			<h4>Errata / Manual intervention required steps:</h4>
 			<p>Jan 2020: Please re-install vim to remove libcanberra dependency
-			<p>July 2020: Please run the following command right before updating dhcpcd: <code>(getent group dhcpcd || /usr/sbin/groupadd -r dhcpcd) &amp;&amp; (getent passwd dhcpcd || /usr/sbin/useradd -r -d /var/lib/dhcpcd -s /bin/false dhcpcd) &amp;&amp; /usr/bin/passwd -l dhcpcd</code>
+			<p>July 2020: Please run the below command right before updating dhcpcd:
+			<p> <code>(getent group dhcpcd || /usr/sbin/groupadd -r dhcpcd) &amp;&amp; \
+				(getent passwd dhcpcd || /usr/sbin/useradd -r -d /var/lib/dhcpcd -s /bin/false dhcpcd) &amp;&amp; \
+				/usr/bin/passwd -l dhcpcd</code>
 
 			</ul>
 			<br>
