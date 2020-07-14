@@ -52,7 +52,8 @@ $(document).ready(function() {
 			else {
 				out_size = Math.ceil(packages[i].size/1024) + "kb"
 			}
-			out = out + "<tr><td>" + packages[i].name + "</td><td>" + packages[i].version + '</td"><td style="text-align: center;">' + packages[i].build + "</td><td>" + packages[i].odate.toDateString() + "</td><td>" + out_size+ "</td></tr>";
+			d = Date(packages[i].epoch).split(" ");
+			out = out + "<tr><td>" + packages[i].name + "</td><td>" + packages[i].version + '</td"><td style="text-align: center;">' + packages[i].build + "</td><td>" + d[0] + " " + d[1] + " " + d[2] + " " + d[3] + 	</td><td>" + out_size+ "</td></tr>";
 		}
 		out = out + bottom;
 		$("#loader").hide();
