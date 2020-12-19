@@ -60,13 +60,13 @@ $(document).ready(function() {
 		$("#pkgstable").html(out);
 	}
 
-	$.ajax("https://europa.fapyd.unr.edu.ar/pub/kwort/4.3.4/packages/")
+	$.ajax("https://europa.fapyd.unr.edu.ar/pub/kwort/4.3.5/packages/")
 		.then( function (rawdata) { // OK with primary mirror
 			packages = create_array(rawdata);
 			create_table(packages);
 		})
 		.fail( function(rawdata) {  // Primary mirror failed
-			$.ajax("http://ctrl-c.club/~nomius/kwort/4.3.4/packages/")
+			$.ajax("http://ctrl-c.club/~nomius/kwort/4.3.5/packages/")
 				.then( function (rawdata2) { // Trying Secondary mirror now (hopefully ctrl-c implements https, otherwise this is useless).
 					packages = create_array(rawdata2);
 					create_table(packages);
