@@ -12,11 +12,14 @@ $(document).ready( function() {
 	$.ajax("content/news/index.json")
 		.then( function (nIndex) {
 			var sorter_nIndex = nIndex.sort(function(a, b) { return b.date - a.date; } );
-			for(i = 0; i < news_per_page; i++) {
+			if (sorter_nIndex.length < news_per_page;) {
+				to_show = sorter_nIndex.length;
+			}
+			else {
+				to_show = news_per_page;
+			}
+			for(i = 0; i < to_show; i++) {
 				var new_item = sorter_nIndex[show_news + i];
-				if (new_item == undefined) {
-					break;
-				}
 				$.ajax(new_item.link)
 					.then(function (new_content) {
 						$("#newsplaceholder").append(marked(new_content) + "<br>");
