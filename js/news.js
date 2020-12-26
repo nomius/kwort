@@ -28,7 +28,7 @@ $(document).ready(function() {
 			to_show = news_per_page;
 		}
 		for(i = 0; i < to_show; i++) {
-			var new_item = sorter_nIndex[show_news + i];
+			var new_item = nIndex[show_news + i];
 			makeAjaxCall(new_item.link, null, "GET").then(function(content) {
 				$("#newsplaceholder").append(marked(new_content) + "<br>");
 			});
