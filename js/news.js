@@ -31,9 +31,6 @@ $(document).ready( function() {
 					if (!news[i].done) {
 						window.setTimeout(checkNews, 100);
 					}
-    				else {
-						return;
-    				}
 				}
 			}
 			checkNews();
