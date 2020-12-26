@@ -27,10 +27,15 @@ $(document).ready( function() {
 					} )
 			}
 			function checkNews() {
+				done = true
 				for(i = 0; i < to_show; i++) {
 					if (!news[i].done) {
 						window.setTimeout(checkNews, 100);
+						done = false
 					}
+				}
+				if (done) {
+					return true;
 				}
 			}
 			checkNews();
