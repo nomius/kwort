@@ -12,7 +12,7 @@ $(document).ready( function() {
 	$.ajax("content/news/index.json")
 		.then( function (nIndex) {
 			var sorter_nIndex = nIndex.sort(function(a, b) { return b.date - a.date; } );
-			if (sorter_nIndex.length < news_per_page;) {
+			if (sorter_nIndex.length < news_per_page) {
 				to_show = sorter_nIndex.length;
 			}
 			else {
