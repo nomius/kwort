@@ -7,7 +7,6 @@ $(document).ready(function() {
 			method : methodType,
 			data : parameters,
 			dataType : "json",
-			contentType : 'application/json'
 		});
 	}
 
