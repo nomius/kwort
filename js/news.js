@@ -6,7 +6,6 @@ $(document).ready(function() {
 			cache: true,
 			method : methodType,
 			data : parameters,
-			dataType : "json",
 		});
 	}
 
