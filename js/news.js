@@ -30,7 +30,7 @@ $(document).ready(function() {
 		for(i = 0; i < to_show; i++) {
 			var new_item = nIndex[show_news + i];
 			makeAjaxCall(new_item.link, null, "GET").then(function(content) {
-				$("#newsplaceholder").append(marked(new_content) + "<br>");
+				$("#newsplaceholder").append(marked(content) + "<br>");
 			});
 		}
 	});
