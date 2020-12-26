@@ -20,7 +20,6 @@ $(document).ready( function() {
 			}
 			for(i = 0; i < to_show; i++) {
 				news.push({ 'index' : i, 'done' : false });
-				var new_item = sorter_nIndex[show_news + i];
 				$.ajax(nIndex[i].link)
 					.then(function (content) {
 						j = news.findIndex(x => x.index = i);
