@@ -4,26 +4,43 @@ $(document).ready( function() {
 	var urls = window.location.href.split("/");
 	var idx = urls[urls["length"]-1].replace('.html', '').replace('.htm', '').replace('news', '');
 	if (idx == "")
-		idx = 0;
+		idx = 1;
 	show_news = news_per_page * idx;
+	const news = new Array();
 
 	$("#loader").hide();
 
 	$.ajax("content/news/index.json")
 		.then( function (nIndex) {
-			var sorter_nIndex = nIndex.sort(function(a, b) { return b.date - a.date; } );
-			if (sorter_nIndex.length < news_per_page) {
-				to_show = sorter_nIndex.length;
+			if (nIndex.length < news_per_page) {
+				to_show = nIndex.length;
 			}
 			else {
 				to_show = news_per_page;
 			}
 			for(i = 0; i < to_show; i++) {
+				news.push({ 'index' : i, 'done' : false });
 				var new_item = sorter_nIndex[show_news + i];
-				$.ajax(new_item.link)
-					.then(function (new_content) {
-						$("#newsplaceholder").append(marked(new_content) + "<br>");
+				$.ajax(nIndex[i].link)
+					.then(function (content) {
+						j = news.findIndex(x => x.index = i);
+						news[j] = { 'post' : content, 'index' : j, 'done' : true}
 					} )
+			}
+			function checkNews() {
+				for(i = 0; i < to_show; i++) {
+					if (!news[i].done) {
+						window.setTimeout(checkNews, 100);
+					}
+    				else {
+						return;
+    				}
+				}
+			}
+			checkNews();
+			var sorted_news = news.sort(function(a, b) { return a.index - b.index; } );
+			for(i = 0; i < sorted_news.length; i++) {
+				$("#newsplaceholder").append(marked(sorted_news[i]) + "<br>");
 			}
 		} )
 		.fail (function (rawdata) {
