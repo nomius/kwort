@@ -37,6 +37,9 @@ $(document).ready( function() {
 				if (done) {
 					return true;
 				}
+				else {
+					checkNews();
+				}
 			}
 			checkNews();
 			var sorted_news = news.sort(function(a, b) { return a.index - b.index; } );
