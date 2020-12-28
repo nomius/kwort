@@ -25,8 +25,8 @@ $(document).ready(function() {
 		else {
 			to_show = news_per_page;
 		}
-		for (i = show_news; i < show_news + news_per_page; i++) {
-			nIndex[i].date = -1;
+		for (i = 0; i < to_show; i++) {
+			nIndex[show_news + i].date = -1;
 		}
 
 		nIndex.reduce((promise, item) => {
