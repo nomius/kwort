@@ -31,11 +31,11 @@ $(document).ready(function() {
 
 		nIndex.reduce((promise, item) => {
 			return promise.then(() => {
-				return makeAjaxCall(item.link, null, "GET");
-			}).then((content) => {
 				if (item.date == -1) {
-					$("#newsplaceholder").append(marked(content) + "<br>");
+					return makeAjaxCall(item.link, null, "GET");
 				}
+			}).then((content) => {
+				$("#newsplaceholder").append(marked(content) + "<br>");
 			});
 		}, Promise.resolve());
 	});
