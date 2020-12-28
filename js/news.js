@@ -25,11 +25,13 @@ $(document).ready(function() {
 		else {
 			to_show = news_per_page;
 		}
-		for(i = 0; i < to_show; i++) {
-			var new_item = nIndex[show_news + i];
-			makeAjaxCall(new_item.link, null, "GET").then(function(content) {
+
+		nIndex.reduce((promise, item) => {
+			return promise.then(() => {
+				return makeAjaxCall(item.link, null, "GET");
+			}).then((content) => {
 				$("#newsplaceholder").append(marked(content) + "<br>");
 			});
-		}
+		}, Promise.resolve());
 	});
 });
