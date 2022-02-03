@@ -11,7 +11,7 @@ $(document).ready( function() {
 	$("#loader").hide();
 	$.ajax("content/documentation/" + section + ".md")
 		.then( function (data) {
-			document.getElementsByClassName("col-lg-8")[0].innerHTML = marked(data);
+			document.getElementsByClassName("col-lg-8")[0].innerHTML = marked.parse(data);
 		} )
 		.fail( function (rawdata) {
 			document.getElementsByClassName("col-lg-8")[0].innerHTML = "<p>Documentation not accessible";

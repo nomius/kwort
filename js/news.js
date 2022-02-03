@@ -35,7 +35,7 @@ $(document).ready(function() {
 					return makeAjaxCall(item.link, null, "GET");
 				}
 			}).then((content) => {
-				$("#newsplaceholder").append(marked(content) + "<br>");
+				$("#newsplaceholder").append(marked.parse(content) + "<br>");
 			});
 		}, Promise.resolve());
 	});
