@@ -54,7 +54,7 @@ $(document).ready(function() {
 		weekday[5]="Fri";
 		weekday[6]="Sat";
 
-		var month = new Array(7);
+		var month = new Array(12);
 		month[0] = 'Jan';
 		month[1] = 'Feb';
 		month[2] = 'Mar';
