@@ -52,7 +52,7 @@ $(document).ready(function() {
 			else {
 				out_size = Math.ceil(packages[i].size/1024) + "kb";
 			}
-			d = Date(packages[i].epoch).split(" ");
+			d = new Date(packages[i].epoch).split(" ");
 			out = out + "<tr><td>" + packages[i].name + "</td><td>" + packages[i].version + '</td"><td style="text-align: center;">' + packages[i].build + "</td><td>" + d[0] + " " + d[1] + " " + d[2] + " " + d[3] + "</td><td>" + out_size+ "</td></tr>";
 		}
 		out = out + bottom;
@@ -66,7 +66,7 @@ $(document).ready(function() {
 			create_table(packages);
 		})
 		.fail( function(rawdata) {  // Primary mirror failed
-			$.ajax("http://ctrl-c.club/~nomius/kwort/4.4/packages/")
+			$.ajax("https://ctrl-c.club/~nomius/kwort/4.4/packages/")
 				.then( function (rawdata2) { // Trying Secondary mirror now (hopefully ctrl-c implements https, otherwise this is useless).
 					packages = create_array(rawdata2);
 					create_table(packages);
