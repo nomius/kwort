@@ -45,6 +45,26 @@ $(document).ready(function() {
 		head = "<table><tr><th>Name</th><th>Version</th><th>Build</th><th>Release date</th><th>Size</th></tr>";
 		bottom = "</table><br>";
 		out = head;
+		weekday[0]="Sun";
+		weekday[1]="Mon";
+		weekday[2]="Tue";
+		weekday[3]="Wed";
+		weekday[4]="Thu";
+		weekday[5]="Fri";
+		weekday[6]="Sat";
+
+		month[0] = 'Jan';
+		month[1] = 'Feb';
+		month[2] = 'Mar';
+		month[3] = 'Apr';
+		month[4] = 'May';
+		month[5] = 'Jun';
+		month[6] = 'Jul';
+		month[7] = 'Aug';
+		month[8] = 'Sep';
+		month[9] = 'Oct';
+		month[10] = 'Nov';
+		month[11] = 'Dec';
 		for (i=0; i < (packages.length < 20 ? packages.length : 20); i++) {
 			if (packages[i].size > 10485760) { // More than 10MB
 				out_size = Math.ceil(packages[i].size / 1048576) + "mb";
@@ -52,8 +72,9 @@ $(document).ready(function() {
 			else {
 				out_size = Math.ceil(packages[i].size/1024) + "kb";
 			}
-			d = new Date(packages[i].epoch).split(" ");
-			out = out + "<tr><td>" + packages[i].name + "</td><td>" + packages[i].version + '</td"><td style="text-align: center;">' + packages[i].build + "</td><td>" + d[0] + " " + d[1] + " " + d[2] + " " + d[3] + "</td><td>" + out_size+ "</td></tr>";
+			d = new Date(packages[i].epoch)
+
+			out = out + "<tr><td>" + packages[i].name + "</td><td>" + packages[i].version + '</td"><td style="text-align: center;">' + packages[i].build + "</td><td>" + weekday[d.getDay()] + " " + month[d.getMonth()] + " " + d.getDate() + " " + 1900 + d.getYear() + "</td><td>" + out_size+ "</td></tr>";
 		}
 		out = out + bottom;
 		$("#loader").hide();
