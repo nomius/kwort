@@ -45,6 +45,7 @@ $(document).ready(function() {
 		head = "<table><tr><th>Name</th><th>Version</th><th>Build</th><th>Release date</th><th>Size</th></tr>";
 		bottom = "</table><br>";
 		out = head;
+		var weekday = new Array(7);
 		weekday[0]="Sun";
 		weekday[1]="Mon";
 		weekday[2]="Tue";
@@ -53,6 +54,7 @@ $(document).ready(function() {
 		weekday[5]="Fri";
 		weekday[6]="Sat";
 
+		var month = new Array(7);
 		month[0] = 'Jan';
 		month[1] = 'Feb';
 		month[2] = 'Mar';
@@ -81,13 +83,13 @@ $(document).ready(function() {
 		$("#pkgstable").html(out);
 	}
 
-	$.ajax({ url: "https://europa.fapyd.unr.edu.ar/pub/kwort/4.4/packages/", crossDomain: true})
+	$.ajax("https://europa.fapyd.unr.edu.ar/pub/kwort/4.4/packages/")
 		.then( function (rawdata) { // OK with primary mirror
 			packages = create_array(rawdata);
 			create_table(packages);
 		})
 		.fail( function(rawdata) {  // Primary mirror failed
-			$.ajax({ url: "https://ctrl-c.club/~nomius/kwort/4.4/packages/", crossDomain: true})
+			$.ajax("https://ctrl-c.club/~nomius/kwort/4.4/packages/")
 				.then( function (rawdata2) { // Trying Secondary mirror now (hopefully ctrl-c implements https, otherwise this is useless).
 					packages = create_array(rawdata2);
 					create_table(packages);
