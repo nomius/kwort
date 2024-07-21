@@ -81,13 +81,13 @@ $(document).ready(function() {
 		$("#pkgstable").html(out);
 	}
 
-	$.ajax("https://europa.fapyd.unr.edu.ar/pub/kwort/4.4/packages/")
+	$.ajax({ url: "https://europa.fapyd.unr.edu.ar/pub/kwort/4.4/packages/", crossDomain: true})
 		.then( function (rawdata) { // OK with primary mirror
 			packages = create_array(rawdata);
 			create_table(packages);
 		})
 		.fail( function(rawdata) {  // Primary mirror failed
-			$.ajax("https://ctrl-c.club/~nomius/kwort/4.4/packages/")
+			$.ajax({ url: "https://ctrl-c.club/~nomius/kwort/4.4/packages/", crossDomain: true})
 				.then( function (rawdata2) { // Trying Secondary mirror now (hopefully ctrl-c implements https, otherwise this is useless).
 					packages = create_array(rawdata2);
 					create_table(packages);
