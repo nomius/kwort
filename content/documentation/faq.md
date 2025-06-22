@@ -109,5 +109,27 @@ kpkg doesn't handle dependencies so you need to install them manually. Below is 
 
 #### Is it there something like a "service" command for Kwort?
 
-Since Kwort 4.2, the service command is already included in the rc package, otherwise, you can download it from [here](https://raw.githubusercontent.com/nomius/misctools/master/service); although I encourage you to use `/etc/rc.d` script files
+Since Kwort 4.5, the service command is no longer part of the system, but you can download it from [here](https://raw.githubusercontent.com/nomius/misctools/master/service).
+
+#### How can I configure the VDPAU and VA-API?
+
+You can set the `VDPAU_DRIVER` environment variable to configure VDPAU driver.
+
+* For Intel graphics, set it to `va_gl`.
+* For the open source AMD driver set it to `radeonsi`.
+* For the open source Nouveau driver set it to `nouveau`.
+* For NVIDIA's proprietary version set it to `nvidia`.
+
+You can set the `LIBVA_DRIVER_NAME` environment variable to configure VA-API driver:.
+
+* For Intel graphics: Both drivers are shipped, libva-intel-driver (i965) & intel-media-driver (iHD), so you can use `i965` or `iHD`. `iHD` is recommended.
+* For NVIDIA, `nouveau` driver is shipped by default, but you can build and install the Nvidia driver through the ports and configure it to `nvidia`.
+* For AMDGPU driver use `radeonsi`.
+
+For example for Intel, the below in your profile would do:
+
+```
+export VDPAU_DRIVER=va_gl
+export LIBVA_DRIVER_NAME=iHD
+```
 
