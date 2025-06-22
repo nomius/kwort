@@ -40,6 +40,7 @@ Unlocked: Yes
 Protected with 1 protector:
 PROTECTOR         LINKED  DESCRIPTION
 j89458n98m238n3c  No      custom protector "user"
-root@localhost:~# chown user:root /.fscrypt/policies/9j8d4039485h2039485dj230mxnnw7nm /.fscrypt/protectors/j89458n98m238n3c
+
+root@localhost:~# chown user:root /.fscrypt/{policies/9j8d4039485h2039485dj230mxnnw7nm,protectors/j89458n98m238n3c}
 ```
 
