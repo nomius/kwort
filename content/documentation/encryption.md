@@ -1,8 +1,11 @@
 ## Encryption
 
 Kwort uses ext4 encryption if configured. The first step is to perform the initial filesystem encryption.
+
 For this, you need to be sure your filesystem was created with the `encrypt` option. When using mkfs.ext4 you can specify the option `-O encrypt` or once formated you can enable it with: `tune2fs -O encrypt /dev/device`.
+
 Then you can use fscrypt tool to perform the global setup with: `fscrypt setup`.
+
 At this point, nothing is encrypted yet, but you'll see now in your root (/) that a `.fscrypt` directory has been created to store the directories' policies and protectors.
 
 ### Home directory encryption
@@ -15,7 +18,7 @@ Once your home directory is created and **CLEAN**, ensure it's owned by the righ
 
 Now it's time to setup encryption on that directory using.
 
-*CAVEAT: The next step will encrypt the home directory.
+*CAVEAT: The next step will encrypt the home directory.*
 
 ``` sh
   fscrypt encrypt /home/newhome --user=user
