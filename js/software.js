@@ -83,20 +83,54 @@ $(document).ready(function() {
 		$("#pkgstable").html(out);
 	}
 
-	$.ajax("https://europa.fapyd.unr.edu.ar/pub/kwort/4.5/packages/")
-		.then( function (rawdata) { // OK with primary mirror
-			packages = create_array(rawdata);
-			create_table(packages);
-		})
-		.fail( function(rawdata) {  // Primary mirror failed
-			$.ajax("https://ctrl-c.club/~nomius/kwort/4.5/packages/")
-				.then( function (rawdata2) { // Trying Secondary mirror now (hopefully ctrl-c implements https, otherwise this is useless).
-					packages = create_array(rawdata2);
-					create_table(packages);
-				})
-				.fail( function (rawdata2) { // Let's display an error message
-					$("#loader").hide();
-					$("#pkgstable").html("<p>All mirrors are down");
-				})
-		})
+	const PRIMARY_API_URL = 'https://europa.fapyd.unr.edu.ar/pub/kwort/4.5/packages/';
+	const FALLBACK_API_URL = 'https://ctrl-c.club/~nomius/kwort/4.5/packages/';
+
+	async function callPrimaryApi() {
+		try {
+			const response = await fetch(PRIMARY_API_URL, { timeout: 5000 }); // Added a timeout for faster failure
+			if (!response.ok) {
+				throw new Error(`Primary API responded with status: ${response.status}`);
+			}
+			const data = await response.text();
+			return create_array(data);
+		} catch (error) {
+			console.error('Primary API call failed:', error);
+			throw new Error(`Primary API failed: ${error.message}. Trying fallback.`);
+		}
+	}
+
+	async function callFallbackApi() {
+		try {
+			const response = await fetch(FALLBACK_API_URL);
+			if (!response.ok) {
+				throw new Error(`Fallback API responded with status: ${response.status}`);
+			}
+			const data = await response.text();
+			return create_array(data);
+		} catch (error) {
+			console.error('Fallback API call failed:', error);
+			throw new Error(`Fallback API also failed: ${error.message}. No data available.`);
+		}
+	}
+
+	async function handleApiCall() {
+		try {
+			// Attempt primary mirror
+			const packages1 = await callPrimaryApi();
+			create_table(packages1);
+		} catch (primaryError) {
+			// If primary mirror fails, attempt fallback mirror
+			try {
+				const packages2 = await callFallbackApi();
+				create_table(packages2);
+			} catch (fallbackError) {
+				// If both fail, show the final error
+				$("#loader").hide();
+				$("#pkgstable").html("<p>All mirrors are down");
+				throw new Error(`Both servers are down`);
+			}
+		}
+	}
+	handleApiCall();
 });
