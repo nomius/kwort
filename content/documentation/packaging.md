@@ -10,21 +10,21 @@ makepkg was borrowed from Slackware and rewritten to create Kwort specific packa
 * copy all the files related to the package into the appropriate directories in the directory tree.
 * run makepkg to create the package.
 
-I would advice you to create a directory where you will package your packages; for instance, something like /pkg. This is where you will create your directory tree. /pkg will simple contain the location on where the files in the package you are creating will be installed. For instance, foo#1.0#x86\_64#1.tar.xz will install the binary file foo in /usr/bin and a configuration file foorc in /usr/etc. Therefore, /pkg will contain the following directories:
+I would advice you to create a directory where you will package your packages; for instance, something like /pkg. This is where you will create your directory tree. /pkg will simple contain the location on where the files in the package you are creating will be installed. For instance, foo#1.0#x86\_64#1.tar.xz will install the binary file foo in /usr/bin and a configuration file foorc in /etc. Therefore, /pkg will contain the following directories:
 
 ```sh
   /pkg/usr/bin
-  /pkg/usr/etc
+  /pkg/etc
 ```
 
-The next step is to copy all the files to the directory tree. So in this case, there are only two files to foo#1.0#x86\_64#1.tar.xz, and they are foo and foorc. We then copy the files to where they will be installed, in this case, /usr/bin and /usr/etc respectively. When that is done with, we do the following:
+The next step is to copy all the files to the directory tree. So in this case, there are only two files to foo#1.0#x86\_64#1.tar.xz, and they are foo and foorc. We then copy the files to where they will be installed, in this case, /usr/bin and /etc respectively. When that is done with, we do the following:
 
 ```sh
   cd /pkg
   makepkg -s -c -z foo#1.0#x86_64#1.tar.xz
 ```
 
-This will create a package called foo#1.0#x86\_64#1.tar.xz which contains the files foo and foorc which will be installed in /usr/bin and /usr/etc respectively. Also, given the options -s, -c and -z was given, it will strip binaries (in this case `/usr/bin/foo`), chown all files to root:root and compress man pages if any.
+This will create a package called foo#1.0#x86\_64#1.tar.xz which contains the files foo and foorc which will be installed in /usr/bin and /etc respectively. Also, given the options -s, -c and -z was given, it will strip binaries (in this case `/usr/bin/foo`), chown all files to root:root and compress man pages if any.
 
 As you probably noted, you will need to hunt around for the files and then to copy them to the created directory tree. An easier way to do this would be to build the package from source, and then have the built binaries installed into the directory tree. If for instance we have downloaded a source package called foo-1.0.tar.gz. We have already created a directory /pkg it is currently empty. The first thing to do is to unpack the source file and then to build the source. A full sequence of a software source which uses autotools would be:
 
